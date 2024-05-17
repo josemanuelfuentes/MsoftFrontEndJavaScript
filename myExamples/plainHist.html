@@ -3,19 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Histogram Plotter</title>
+<title>Histogram Line Graph</title>
 <style>
-  #chart {
-    width: 100%;
-    height: 500px;
-    position: relative;
+  body, html {
+    height: 100%;
+    margin: 0;
   }
-  .bar {
+    #chart {
+    width: 100%;
+    height: 80%;
+    position: relative;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+  .point {
     position: absolute;
-    bottom: 0;
-    background: #3498db;
-    width: 20px;
-    border: 1px solid #2980b9;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: black;
   }
   #reset {
     margin-top: 10px;
@@ -44,22 +50,22 @@ let data = [
 const chart = document.getElementById('chart');
 const maxValue = Math.max(...data.map(d => Math.max(d.val1, d.val2)));
 
-// Function to update the histogram
+// Function to update the histogram line graph
 function updateHistogram() {
   chart.innerHTML = ''; // Clear the chart
   data.forEach((d, i) => {
-    const bar1 = document.createElement('div');
-    bar1.className = 'bar';
-    bar1.style.height = `${(d.val1 / maxValue) * 100}%`;
-    bar1.style.left = `${i * 40}px`;
-    chart.appendChild(bar1);
+    const point1 = document.createElement('div');
+    point1.className = 'point';
+    point1.style.bottom = `${(d.val1 / maxValue) * 100}%`;
+    point1.style.left = `${i * 40}px`;
+    chart.appendChild(point1);
 
-    const bar2 = document.createElement('div');
-    bar2.className = 'bar';
-    bar2.style.height = `${(d.val2 / maxValue) * 100}%`;
-    bar2.style.left = `${i * 40 + 22}px`;
-    bar2.style.background = '#e74c3c';
-    chart.appendChild(bar2);
+    const point2 = document.createElement('div');
+    point2.className = 'point';
+    point2.style.bottom = `${(d.val2 / maxValue) * 100}%`;
+    point2.style.left = `${i * 40 + 20}px`;
+    point2.style.backgroundColor = 'red';
+    chart.appendChild(point2);
   });
 }
 
